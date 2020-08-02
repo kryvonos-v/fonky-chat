@@ -1,0 +1,20 @@
+{
+  "name": "fonky-chat",
+  "version": "1.0.0",
+  "description": "Chat for fonky people",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha './**/*.spec.js'",
+    "serve": "NODE_ENV=development ./node_modules/.bin/nodemon --ignore node_modules app.js"
+  },
+  "author": "Volodymyr Kryvonos",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "nunjucks": "^3.2.2"
+  }
+}

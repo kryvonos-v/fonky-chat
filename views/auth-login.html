@@ -1,0 +1,129 @@
+{% extends "views/layouts/page.html" %}
+
+{% block title %}
+  Login page
+{% endblock %}
+
+{% block content %}
+  <style>
+    .auth-form {
+      margin-top: 50px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+      max-width: 400px;
+    }
+    .auth-form__buttons {
+      width: 100%;
+    }
+    .auth-form__submit-button {
+      width: 100%;
+    }
+    .auth-form__separator {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .auth-error-notification {
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .auth-button {
+      width: 100%;
+    }
+    .auth-button__icon {
+      margin-right: 0.5em !important;
+      max-width: 20px;
+      max-height: 20px;
+    }
+
+    .auth-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+    .auth-buttons > * {
+      margin-bottom: 8px;
+    }
+    .auth-buttons > *:last-child {
+      margin-bottom: 0;
+    }
+
+    .text-hr {
+      display: flex;
+      align-items: center;
+    }
+    .text-hr::before,
+    .text-hr::after {
+      content: "";
+      flex-grow: 1;
+      height: 1px;
+      background-color: #dbdbdb;
+    }
+    .text-hr__inner {
+      margin-left: 20px;
+      margin-right: 20px;
+      font-size: 18px;
+      line-height: 1.4;
+      color: #7b7b7b;
+    }
+  </style>
+
+  <div class="container">
+    {% if authError %}
+    <div class="notification auth-error-notification is-danger">{{ authError }}</div>
+    {% endif %}
+
+    <div class="auth-form box">
+      <form method="POST">
+        <div class="field">
+          <label for="auth_email" class="label">Email</label>
+          <input type="text" id="auth_email" class="input" name="email" value="{{ user.email }}" />
+        </div>
+        <div class="field">
+          <label for="auth_password" class="label">Password</label>
+          <input type="password" id="auth_password" class="input" name="password" />
+        </div>
+
+        <div class="field is-grouped" style="margin-top: 20px">
+          <div class="control auth-form__buttons">
+            <button type="submit" name="action" value="logIn" class="auth-form__submit-button button is-link">
+              Log in
+            </button>
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control auth-form__buttons">
+            <button type="submit" name="action" value="signUp" class="auth-form__submit-button button is-primary">
+              Sign up
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="auth-form__separator text-hr">
+        <span class="text-hr__inner">or</span>
+      </div>
+
+      <h2 class="label">Sign in with</h2>
+
+      <div class="auth-buttons">
+        <a class="auth-button button" href="{{auth.facebook}}">
+          <img class="auth-button__icon icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" />
+          <span>Facebook</span>
+        </a>
+        <a class="auth-button button" href="{{auth.google}}">
+          <img class="auth-button__icon icon" src="https://cdn.worldvectorlogo.com/logos/google-icon.svg" />
+          <span>Google</span>
+        </a>
+
+        <a class="auth-button button" href="{{auth.github}}">
+          <span class="auth-button__icon icon">
+            <svg height="32" class="octicon octicon-mark-github text-white" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          </span>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

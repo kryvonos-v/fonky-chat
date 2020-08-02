@@ -1,0 +1,116 @@
+{% set pageClass = "user-profile-page" %}
+{% set useVue = true %}
+{% extends "views/layouts/page.html" %}
+
+{% block title %}User profile{% endblock %}
+
+{% block content %}
+<style>
+  .user-profile-page {
+    background-color: #efeff3; 
+  }
+  .user-profile-card {
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+    color: #000;
+  }
+  .user-profile-avatar {
+    display: block;
+    border-radius: 100px;
+  }
+  .user-profile-name {
+    font-weight: 500;
+  }
+</style>
+
+{% set formName = "userProfile" %}
+
+<div class="user-profile-card box">
+  <div class="media">
+    <div class="media-left">
+      <img class="user-profile-avatar" src="{{ user.avatar }}" width="50" height="50" />
+    </div>
+    <form name="{{ formName }}" id="{{ formName }}" class="media-content">
+      <input name="userName" type="text" value="{{ user.name }}" class="user-profile-name plain-input" autocomplete="off">
+      <input name="userEmail" type="email" value="{{ user.email }}" class="user-profile-email plain-input" />
+    </form>
+  </div>
+</div>
+
+<div class="user-profile-card box box--list">
+  <button form="userProfile" name="saveChanges" type="submit" class="plain-button plain-button--is-link" disabled>
+    Save changes
+  </button>
+
+  <span class="hr my-hr"></span>
+
+  <form style="display: flex;" method="POST" action="/logout">
+    <button class="plain-button plain-button--is-danger" type="submit">Log out</button>
+  </form>
+</div>
+
+  <script type="module">
+    const profileForm = document.forms.{{ formName }};
+    const { userName, userEmail } = profileForm.elements;
+    const saveChangesBtn = document.querySelector('button[name="saveChanges"]');
+
+    let userData = {
+      get name() {
+        return userName.value.trim();
+      },
+      get email() {
+        return userEmail.value.trim();
+      }
+    };
+    let savedUserData = { ...userData };
+
+    profileForm.onsubmit = async (event) => {
+      event.preventDefault();
+
+      userName.value = userName.value.trim();
+      userEmail.value = userEmail.value.trim();
+
+      const res = await fetch('/api/user', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify(getChangedUserData())
+      });
+
+      savedUserData = { ...userData };
+      updateSaveChangeButtonState();
+    };
+
+    userName.oninput = updateSaveChangeButtonState;
+    userEmail.oninput = updateSaveChangeButtonState;
+
+    function updateSaveChangeButtonState() {
+      let isUserDataRemainUnchanged = true;
+
+      for (const key in userData) {
+        if (userData[key] !== savedUserData[key]) {
+          isUserDataRemainUnchanged = false;
+          break;
+        }
+      }
+
+      saveChangesBtn.disabled = isUserDataRemainUnchanged;
+    }
+
+    function getChangedUserData() {
+      const data = {};
+
+      for (const key in userData) {
+        if (userData[key] !== savedUserData[key]) {
+          data[key] = userData[key];
+        }
+      }
+
+      return data;
+    }
+  </script>
+{% endblock %}
+

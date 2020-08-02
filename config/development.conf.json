@@ -1,0 +1,27 @@
+{
+  "auth": {
+    "github": {
+      "identityUrl": "https://github.com/login/oauth/authorize",
+      "accessTokenUrl": "https://github.com/login/oauth/access_token",
+      "clientId": "886f25f5b14bbdbfbba1",
+      "clientSecret": "35f3a35bc38c9f5bec438bcc92ed9ebf768816b3"
+    },
+    "google": {
+      "identityUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "redirectUri": "http://localhost:3000/auth/google",
+      "scope": "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+      "responseType": "code",
+      "clientId": "463012028341-46bpgp9kn1s3j060sk0sfgfgdvabej11.apps.googleusercontent.com",
+      "clientSecret": "fkZLhOE46oa4kMD-2CtVYpNr"
+    },
+    "facebook": {
+      "identityUrl": "https://www.facebook.com/v7.0/dialog/oauth",
+      "accessTokenUrl": "https://graph.facebook.com/v7.0/oauth/access_token",
+      "clientId": "763443111125989",
+      "scope": "email",
+      "clientSecret": "0c9e210ffdbdd1f756d08957fcd7b509",
+      "redirectUri": "http://localhost:3000/auth/facebook"
+    }
+  }
+}
