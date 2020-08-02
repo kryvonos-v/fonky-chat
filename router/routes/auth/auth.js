@@ -3,26 +3,31 @@ const config = require('../../../config/config');
 const urlQuery = require('../../../libs/url-query/url-query');
 
 async function loginPage(ctx) {
+  const { github, google, facebook } = config.auth;
+
   ctx.body = render('views/auth-login.html', {
     auth: {
-      github: `${config.auth.github.identityUrl}?` + urlQuery.stringify({
-        client_id: config.auth.github.clientId,
-        scope: 'user:email'
+      github: generateLoginUrl(github.identityUrl, {
+        client_id: github.clientId,
+        scope: github.scope
+      }),
+      google: generateLoginUrl(google.identityUrl, {
+        client_id: google.clientId,
+        redirect_uri: google.redirectUri,
+        scope: google.scope,
+        response_type: google.responseType
       }), 
-      google: config.auth.google.identityUrl + '?' + urlQuery.stringify({
-        client_id: config.auth.google.clientId,
-        redirect_uri: config.auth.google.redirectUri,
-        scope: config.auth.google.scope,
-        response_type: config.auth.google.responseType
-      }), 
-      facebook: config.auth.facebook.identityUrl + '?' + urlQuery.stringify({
-        client_id: config.auth.facebook.clientId,
-        redirect_uri: config.auth.facebook.redirectUri,
-        scope: config.auth.facebook.scope,
-        auth_type: 'rerequest'
-      })  
+      facebook: generateLoginUrl(facebook.identityUrl, {
+        client_id: facebook.clientId,
+        redirect_uri: facebook.redirectUri,
+        scope: facebook.scope
+      })
     }
   });
+}
+
+function generateLoginUrl(providerUrl, params) {
+  return providerUrl + '?' + urlQuery.stringify(params);
 }
 
 function setUp(router) {
