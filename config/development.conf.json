@@ -1,4 +1,7 @@
 {
+  "mongoose": {
+    "URI": "mongodb://localhost:27017/fonky-chat"
+  },
   "auth": {
     "github": {
       "identityUrl": "https://github.com/login/oauth/authorize",
@@ -14,10 +17,7 @@
       "scope": "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
       "responseType": "code",
       "clientId": "463012028341-46bpgp9kn1s3j060sk0sfgfgdvabej11.apps.googleusercontent.com",
-      "clientSecret": "fkZLhOE46oa4kMD-2CtVYpNr",
-      "identityParams": {
-        "client_id": "463012028341-46bpgp9kn1s3j060sk0sfgfgdvabej11.apps.googleusercontent.com"
-      }
+      "clientSecret": "fkZLhOE46oa4kMD-2CtVYpNr"
     },
     "facebook": {
       "identityUrl": "https://www.facebook.com/v7.0/dialog/oauth",
