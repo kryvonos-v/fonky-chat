@@ -2,12 +2,12 @@ const assert = require('assert').strict;
 const Router = require('@koa/router');
 
 const router = new Router();
-const routes = [
+const routeFiles = [
   './routes/general/general',
   './routes/auth/auth'
 ];
 
-routes.forEach(setUpRoute);
+routeFiles.forEach(setUpRoute);
 
 function setUpRoute(routePath) {
   const route = require(routePath);
