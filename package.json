@@ -18,6 +18,8 @@
     "@koa/router": "^9.3.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-session": "^6.0.0",
+    "mongoose": "^5.9.27",
     "nunjucks": "^3.2.2"
   }
 }
